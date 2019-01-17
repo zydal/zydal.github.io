@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>lumenaddr | Stellar address generator</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="lumenaddr.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+        <div class="header clearfix">
+            <h3 class="text-muted">lumen<font style="color:#111111">addr</font></h3>
+            <footer class="blockquote-footer">vanity address generator for Stellar</footer>
+        </div>
+
+      <p></p>
+
+      <div id="mobile-alert" class="alert alert-warning alert-dismissible fade show" role="alert" style="display:none; font-size: 8pt;">
+        Stellar address generation is compute intensive process and you shouldn't be doing it on the mobile device.
+        It may cause overheating and/or instability. Reconsider doing it on desktop or laptop.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <p></p>
+
+      <div class="input-group mx-auto" style="width: 200px;">
+          <input id="suffix" type="text" class="form-control" placeholder="Suffix" aria-label="" aria-describedby="basic-addon1" style="font-family:monospace;">
+          <div class="input-group-append">
+              <button id="generatebutton" class="btn btn-outline-primary" type="button" onclick="return generate();">Generate</button>
+          </div>
+      </div>
+      <div class="text-center">
+      <span id="suffixbadge" class="badge badge-warning" style="visibility:hidden; font-size:9px;">
+          Will take considerable time to compute for this suffix.
+      </span>
+      </div>
+
+      <p></p>
+
+      <div class="progress" style="height: 8px;">
+          <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+              aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; height: 8px; display: none;"></div>
+      </div>
+
+      <p></p>
+
+      <div class="card">
+          <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">The public and secret key will be generated here:</h6>
+              <p></p>
+              <div class="input-group mb-3">
+                  <input id="publicKey" type="text" class="form-control" placeholder="Public Key" aria-label="Public Key" aria-describedby="basic-addon2" style="font-family:monospace;">
+                  <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" data-toggle="tooltip" data-placement="bottom" title="Copied!" data-clipboard data-clipboard-target="#publicKey">
+                          <img class="clippy" src="clippy.svg" width="13" alt="Copy to clipboard">
+                      </button>
+                  </div>
+              </div>
+
+              <div class="input-group mb-3">
+                  <input id="privateKey" type="text" class="form-control" placeholder="Secret Key" aria-label="Secret Key" aria-describedby="basic-addon2" style="font-family:monospace;">
+                  <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" data-toggle="tooltip" data-placement="bottom" title="Copied!"  data-clipboard data-clipboard-target="#privateKey">
+                          <img class="clippy" src="clippy.svg" width="13" alt="Copy to clipboard">
+                      </button>
+                  </div>
+              </div>
+
+              <span id="timebadge" class="badge badge-light pull-right" style="display:none">Took 13s to compute</span>
+          </div>
+      </div>
+
+      <div class="row marketing">
+          <div class="col-lg-6">
+              <h4><i class="fa fa-shield" aria-hidden="true"></i> &nbsp;Safe</h4>
+              <p>Addresses are generated on your computer and nothing is communicated back to the server. </p>
+
+              <h4><i class="fa fa-paper-plane" aria-hidden="true"></i> &nbsp;Single page application</h4>
+              <p>Single page application built with trusted javascript libraries. </p>
+          </div>
+
+          <div class="col-lg-6">
+              <h4><i class="fa fa-code-fork" aria-hidden="true"></i> &nbsp;Open source</h4>
+              <p>Code for this site is open-sourced on <a href="https://bitbucket.org/hardcodr/lumenaddr">bitbucket</a>.
+              You can download, fork or modify at your will. hack on!</p>
+
+              <h4><i class="fa fa-microphone" aria-hidden="true"></i> &nbsp;Free</h4>
+              <p>Of course, it's completely free. Free, as in speech.</p>
+          </div>
+      </div>
+
+      <div class="text-center">
+          <p>If you have questions about usage, performance, and security, 
+          please read <a href="faq.html">FAQ</a>. </p>
+      </div>
+
+      <!--
+      <div class="alert alert-secondary text-center" role="alert">
+          <div>Donate, if you think it's useful.</div>
+          <code>GBLNKSLGKAUF23YPS4G3CGAEJ5G6535OCV3I2GG2EIQ2PHUCDMOLCODR</code>
+      </div>
+      -->
+
+      <p></p>
+
+      <footer class="footer">
+          <div class="row">
+              <div class="col">
+                  <p>&copy; 2018, hardcodr</p>
+              </div>
+              <div class="col">
+                  <p class="pull-right">support@hardcodr.com</p>
+                  <code></code>
+              </div>
+          </div>
+      </footer>
+
+    </div> <!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+    <!-- clipboard support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+
+    <!-- stellar lib -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stellar-sdk/0.8.0/stellar-sdk.js"></script>
+
+    <script src="lumenaddr.js"></script>
+  </body>
+</html>
+
+
+
+
