@@ -5,14 +5,14 @@ onmessage = function(e) {
 
     console.log("Generation started at " + new Date());
 
-    pair = StellarSdk.Keypair.generate();
+    pair = StellarSdk.Keypair.random();
 
     var st = new Date().getTime();
     while(true) {
         if(pair.publicKey().endsWith(("" + suffix).toUpperCase())) {
             break;
         }
-        pair = StellarSdk.Keypair.generate();
+        pair = StellarSdk.Keypair.random();
     }
     var end =  new Date().getTime();
 
